@@ -1,0 +1,21 @@
+# compiled code
+*.py[co]
+
+# notebooks
+*.ipynb_checkpoints/
+
+# dev env
+.DS_Store
+.vscode/
+.python-version
+
+# distribution / packaging
+build/
+dist/
+*.egg-info/
+.mypy_cache/
+
+# testing
+.cache
+.coverage*
+.pytest_cache/
