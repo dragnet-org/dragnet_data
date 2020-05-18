@@ -66,14 +66,14 @@ def main():
                 )
     # package file collections into archives
     shutil.make_archive(
-        args.data_dirpath.joinpath("html", "html_files").resolve(),
-        format="gztar",
+        args.data_dirpath.joinpath("html").resolve(),
         root_dir=args.data_dirpath.joinpath("html").resolve(),
+        format="gztar",
     )
     shutil.make_archive(
-        args.data_dirpath.joinpath("meta", "meta_files").resolve(),
-        format="gztar",
+        args.data_dirpath.joinpath("meta").resolve(),
         root_dir=args.data_dirpath.joinpath("meta").resolve(),
+        format="gztar",
     )
 
 
