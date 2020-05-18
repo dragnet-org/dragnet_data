@@ -1,0 +1,298 @@
+[
+  {
+    "name": "ABC News",
+    "url": "https://abcnews.go.com/abcnews/topstories"
+  },
+  {
+    "name": "Adventure Journal",
+    "url": "https://www.adventure-journal.com/feed"
+  },
+  {
+    "name": "Autoblog",
+    "url": "https://www.autoblog.com/rss.xml"
+  },
+  {
+    "name": "BBC News",
+    "url": "http://feeds.bbci.co.uk/news/uk/rss.xml"
+  },
+  {
+    "name": "Backdoor Survival",
+    "url": "https://www.backdoorsurvival.com/feed"
+  },
+  {
+    "name": "BuzzFeed News",
+    "url": "https://www.buzzfeed.com/world.xml"
+  },
+  {
+    "name": "CBC News",
+    "url": "https://www.cbc.ca/cmlink/rss-topstories"
+  },
+  {
+    "name": "CBS News",
+    "url": "https://www.cbsnews.com/latest/rss/main"
+  },
+  {
+    "name": "CNET",
+    "url": "https://www.cnet.com/rss/all/"
+  },
+  {
+    "name": "CNN",
+    "url": "http://rss.cnn.com/rss/cnn_topstories.rss"
+  },
+  {
+    "name": "CTV News",
+    "url": "https://www.ctvnews.ca/rss/ctvnews-ca-top-stories-public-rss-1.822009"
+  },
+  {
+    "name": "Calculated Risk",
+    "url": "https://www.calculatedriskblog.com/feeds/posts/default?alt=rss"
+  },
+  {
+    "name": "Chicago Tribune",
+    "url": "https://www.chicagotribune.com/rss2.0.xml"
+  },
+  {
+    "name": "CoinDesk",
+    "url": "https://www.coindesk.com/feed"
+  },
+  {
+    "name": "Cointelegraph",
+    "url": "https://cointelegraph.com/rss"
+  },
+  {
+    "name": "Colossal",
+    "url": "https://www.thisiscolossal.com/feed"
+  },
+  {
+    "name": "Daily Mail Online",
+    "url": "https://www.dailymail.co.uk/home/index.rss"
+  },
+  {
+    "name": "Design You Trust",
+    "url": "https://designyoutrust.com/feed"
+  },
+  {
+    "name": "Deutsche Welle",
+    "url": "https://rss.dw.com/rdf/rss-en-top"
+  },
+  {
+    "name": "Digital Photography Review",
+    "url": "https://www.dpreview.com/feeds/reviews.xml"
+  },
+  {
+    "name": "EU Observer",
+    "url": "https://xml.euobserver.com/rss.xml"
+  },
+  {
+    "name": "EdSurge",
+    "url": "https://www.edsurge.com/articles_rss"
+  },
+  {
+    "name": "El Diario",
+    "url": "https://www.eldiario.es/rss"
+  },
+  {
+    "name": "El Mundo",
+    "url": "https://e00-elmundo.uecdn.es/rss/portada.xml"
+  },
+  {
+    "name": "Engineer.net",
+    "url": "https://www.engineer.net/jobs/rss.xml"
+  },
+  {
+    "name": "Entrepreneur",
+    "url": "https://www.entrepreneur.com/latest.rss"
+  },
+  {
+    "name": "EurekAlert!",
+    "url": "https://www.eurekalert.org/rss.xml"
+  },
+  {
+    "name": "Food52",
+    "url": "https://food52.com/blog.rss"
+  },
+  {
+    "name": "Fox News",
+    "url": "http://feeds.foxnews.com/foxnews/latest"
+  },
+  {
+    "name": "Gizmodo",
+    "url": "https://gizmodo.com/rss"
+  },
+  {
+    "name": "Global News",
+    "url": "https://globalnews.ca/feed/"
+  },
+  {
+    "name": "Harvard Health Blog",
+    "url": "https://www.health.harvard.edu/blog/feed"
+  },
+  {
+    "name": "HuffPost",
+    "url": "https://www.huffpost.com/section/front-page/feed?x=1"
+  },
+  {
+    "name": "Inside Higher Ed",
+    "url": "https://www.insidehighered.com/rss/feed/ihe"
+  },
+  {
+    "name": "Kitchn",
+    "url": "https://www.thekitchn.com/main.rss"
+  },
+  {
+    "name": "Le Monde",
+    "url": "https://www.lemonde.fr/rss/une.xml"
+  },
+  {
+    "name": "Los Angeles Times",
+    "url": "https://www.latimes.com/local/rss2.0.xml"
+  },
+  {
+    "name": "Medical News Today",
+    "url": "https://rss.medicalnewstoday.com/featurednews.xml"
+  },
+  {
+    "name": "Men's Journal",
+    "url": "https://www.mensjournal.com/feed"
+  },
+  {
+    "name": "Ms. Magazine",
+    "url": "https://msmagazine.com/feed"
+  },
+  {
+    "name": "NPR",
+    "url": "https://feeds.npr.org/1001/rss.xml"
+  },
+  {
+    "name": "Nature",
+    "url": "http://feeds.nature.com/nature/rss/current"
+  },
+  {
+    "name": "Refinery29",
+    "url": "https://www.refinery29.com/rss.xml"
+  },
+  {
+    "name": "Reuters",
+    "url": "http://feeds.reuters.com/Reuters/domesticNews"
+  },
+  {
+    "name": "Rolling Stone",
+    "url": "https://www.rollingstone.com/music/feed/"
+  },
+  {
+    "name": "SBNation",
+    "url": "https://www.sbnation.com/rss/current.xml"
+  },
+  {
+    "name": "Science Daily",
+    "url": "http://feeds.sciencedaily.com/sciencedaily"
+  },
+  {
+    "name": "Scientific American",
+    "url": "http://rss.sciam.com/ScientificAmerican-Global"
+  },
+  {
+    "name": "Search Engine Land",
+    "url": "http://feeds.searchengineland.com/searchengineland"
+  },
+  {
+    "name": "Seeking Alpha",
+    "url": "https://seekingalpha.com/feed.xml"
+  },
+  {
+    "name": "Small Business Trends",
+    "url": "https://smallbiztrends.com/feed"
+  },
+  {
+    "name": "The Chronicle of Higher Education",
+    "url": "https://www.chronicle.com/section/Home/5/rss"
+  },
+  {
+    "name": "The Good Men Project",
+    "url": "https://goodmenproject.com/feed"
+  },
+  {
+    "name": "The Moz Blog",
+    "url": "http://feedpress.me/mozblog"
+  },
+  {
+    "name": "TMZ",
+    "url": "https://www.tmz.com/rss.xml"
+  },
+  {
+    "name": "The Business of Fashion",
+    "url": "https://www.businessoffashion.com/syndication/feed"
+  },
+  {
+    "name": "The Guardian",
+    "url": "https://www.theguardian.com/uk/rss"
+  },
+  {
+    "name": "The Independent",
+    "url": "http://www.independent.co.uk/rss"
+  },
+  {
+    "name": "The Local Spain",
+    "url": "https://feeds.thelocal.com/rss/es"
+  },
+  {
+    "name": "The New York Times",
+    "url": "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml"
+  },
+  {
+    "name": "The Onion",
+    "url": "https://www.theonion.com/rss"
+  },
+  {
+    "name": "The Points Guy",
+    "url": "https://thepointsguy.com/feed"
+  },
+  {
+    "name": "The Telegraph",
+    "url": "https://www.telegraph.co.uk/rss.xml"
+  },
+  {
+    "name": "The Verge",
+    "url": "https://www.theverge.com/rss/front-page/index.xml"
+  },
+  {
+    "name": "Toronto Star",
+    "url": "https://www.thestar.com/feeds.topstories.full.rss"
+  },
+  {
+    "name": "Trend News",
+    "url": "https://en.trend.az/feeds/index.rss"
+  },
+  {
+    "name": "Urban Survival Site",
+    "url": "https://urbansurvivalsite.com/feed"
+  },
+  {
+    "name": "VoxEurop",
+    "url": "https://voxeurop.eu/en/feed/rss/all.xml"
+  },
+  {
+    "name": "Washington Post",
+    "url": "http://feeds.washingtonpost.com/rss/politics"
+  },
+  {
+    "name": "WebMD Health",
+    "url": "https://rssfeeds.webmd.com/rss/rss.aspx?RSSSource=RSS_PUBLIC"
+  },
+  {
+    "name": "Women and Hollywood",
+    "url": "https://womenandhollywood.com/feed/rss"
+  },
+  {
+    "name": "Yahoo! Sports",
+    "url": "https://sports.yahoo.com/rss"
+  },
+  {
+    "name": "ZDNet",
+    "url": "https://www.zdnet.com/news/rss.xml"
+  },
+  {
+    "name": "sulonorth",
+    "url": "https://sulonorth.com/feed/"
+  }
+]
