@@ -4,6 +4,10 @@
 # notebooks
 *.ipynb_checkpoints/
 
+# data
+data/html/*.html
+data/meta/*.json
+
 # dev env
 .DS_Store
 .vscode/
