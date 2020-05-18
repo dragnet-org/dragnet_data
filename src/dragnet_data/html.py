@@ -1,6 +1,6 @@
 import datetime
 import logging
-from typing import Any, Dict, Iterable, List, Optional, Set, Union
+from typing import Any, Dict, Iterable, List, Optional, Set, Tuple, Union
 
 import arrow
 import extruct
@@ -20,16 +20,23 @@ PAGE_TYPES = {"WebPage",}
 METADATA_SYNTAXES = {"microdata", "json-ld"}
 
 
-def get_html(url: str) -> str:
-    response = httpx.get(url)
+def get_html(
+    url: str,
+    client: Optional[httpx.Client] = None,
+    **kwargs,
+) -> Tuple[str, httpx.Response]:
+    if client is None:
+        response = httpx.get(url, **kwargs)
+    else:
+        response = client.get(url, **kwargs)
     response.raise_for_status()
     html = response.text
-    return html
+    return html, response
 
 
 def get_data_from_html(html: str) -> Dict[str, Any]:
     data = {}
-    metadata = extruct.extract(html, syntaxes=METADATA_SYNTAXES, uniform=True)
+    metadata = extruct.extract(html, syntaxes=list(METADATA_SYNTAXES), uniform=True)
     for syntax in METADATA_SYNTAXES:
         for jsonld in metadata[syntax]:
             _check_context(jsonld)

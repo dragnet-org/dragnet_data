@@ -23,9 +23,9 @@ def get_entries_from_feed(
 
 def get_data_from_entry(entry: Dict[str, Any]) -> Dict[str, str]:
     data = {
-        "rss_url": get_url(entry),
-        "rss_title": get_title(entry),
-        "rss_dt_published": get_dt_published(entry),
+        "url": get_url(entry),
+        "title": get_title(entry),
+        "dt_published": get_dt_published(entry),
     }
     return {key: val for key, val in data.items() if val}
 
