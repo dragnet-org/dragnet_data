@@ -1,0 +1,296 @@
+[[feeds]]
+name = "ABC News"
+url = "https://abcnews.go.com/abcnews/topstories"
+
+[[feeds]]
+name = "Adventure Journal"
+url = "https://www.adventure-journal.com/feed"
+
+[[feeds]]
+name = "Autoblog"
+url = "https://www.autoblog.com/rss.xml"
+
+[[feeds]]
+name = "BBC News"
+url = "http://feeds.bbci.co.uk/news/uk/rss.xml"
+
+[[feeds]]
+name = "Backdoor Survival"
+url = "https://www.backdoorsurvival.com/feed"
+
+[[feeds]]
+name = "BuzzFeed News"
+url = "https://www.buzzfeed.com/world.xml"
+
+[[feeds]]
+name = "CBC News"
+url = "https://www.cbc.ca/cmlink/rss-topstories"
+
+[[feeds]]
+name = "CBS News"
+url = "https://www.cbsnews.com/latest/rss/main"
+
+[[feeds]]
+name = "CNET"
+url = "https://www.cnet.com/rss/all/"
+
+[[feeds]]
+name = "CNN"
+url = "http://rss.cnn.com/rss/cnn_topstories.rss"
+
+[[feeds]]
+name = "CTV News"
+url = "https://www.ctvnews.ca/rss/ctvnews-ca-top-stories-public-rss-1.822009"
+
+[[feeds]]
+name = "Calculated Risk"
+url = "https://www.calculatedriskblog.com/feeds/posts/default?alt=rss"
+
+[[feeds]]
+name = "Chicago Tribune"
+url = "https://www.chicagotribune.com/rss2.0.xml"
+
+[[feeds]]
+name = "CoinDesk"
+url = "https://www.coindesk.com/feed"
+
+[[feeds]]
+name = "Cointelegraph"
+url = "https://cointelegraph.com/rss"
+
+[[feeds]]
+name = "Colossal"
+url = "https://www.thisiscolossal.com/feed"
+
+[[feeds]]
+name = "Daily Mail Online"
+url = "https://www.dailymail.co.uk/home/index.rss"
+
+[[feeds]]
+name = "Design You Trust"
+url = "https://designyoutrust.com/feed"
+
+[[feeds]]
+name = "Deutsche Welle"
+url = "https://rss.dw.com/rdf/rss-en-top"
+
+[[feeds]]
+name = "Digital Photography Review"
+url = "https://www.dpreview.com/feeds/reviews.xml"
+
+[[feeds]]
+name = "EU Observer"
+url = "https://xml.euobserver.com/rss.xml"
+
+[[feeds]]
+name = "EdSurge"
+url = "https://www.edsurge.com/articles_rss"
+
+[[feeds]]
+name = "El Diario"
+url = "https://www.eldiario.es/rss"
+
+[[feeds]]
+name = "El Mundo"
+url = "https://e00-elmundo.uecdn.es/rss/portada.xml"
+
+[[feeds]]
+name = "Engineer.net"
+url = "https://www.engineer.net/jobs/rss.xml"
+
+[[feeds]]
+name = "Entrepreneur"
+url = "https://www.entrepreneur.com/latest.rss"
+
+[[feeds]]
+name = "EurekAlert!"
+url = "https://www.eurekalert.org/rss.xml"
+
+[[feeds]]
+name = "Food52"
+url = "https://food52.com/blog.rss"
+
+[[feeds]]
+name = "Fox News"
+url = "http://feeds.foxnews.com/foxnews/latest"
+
+[[feeds]]
+name = "Gizmodo"
+url = "https://gizmodo.com/rss"
+
+[[feeds]]
+name = "Global News"
+url = "https://globalnews.ca/feed/"
+
+[[feeds]]
+name = "Harvard Health Blog"
+url = "https://www.health.harvard.edu/blog/feed"
+
+[[feeds]]
+name = "HuffPost"
+url = "https://www.huffpost.com/section/front-page/feed?x=1"
+
+[[feeds]]
+name = "Inside Higher Ed"
+url = "https://www.insidehighered.com/rss/feed/ihe"
+
+[[feeds]]
+name = "Kitchn"
+url = "https://www.thekitchn.com/main.rss"
+
+[[feeds]]
+name = "Le Monde"
+url = "https://www.lemonde.fr/rss/une.xml"
+
+[[feeds]]
+name = "Los Angeles Times"
+url = "https://www.latimes.com/local/rss2.0.xml"
+
+[[feeds]]
+name = "Medical News Today"
+url = "https://rss.medicalnewstoday.com/featurednews.xml"
+
+[[feeds]]
+name = "Men's Journal"
+url = "https://www.mensjournal.com/feed"
+
+[[feeds]]
+name = "Ms. Magazine"
+url = "https://msmagazine.com/feed"
+
+[[feeds]]
+name = "NPR"
+url = "https://feeds.npr.org/1001/rss.xml"
+
+[[feeds]]
+name = "Nature"
+url = "http://feeds.nature.com/nature/rss/current"
+
+[[feeds]]
+name = "Refinery29"
+url = "https://www.refinery29.com/rss.xml"
+
+[[feeds]]
+name = "Reuters"
+url = "http://feeds.reuters.com/Reuters/domesticNews"
+
+[[feeds]]
+name = "Rolling Stone"
+url = "https://www.rollingstone.com/music/feed/"
+
+[[feeds]]
+name = "SBNation"
+url = "https://www.sbnation.com/rss/current.xml"
+
+[[feeds]]
+name = "Science Daily"
+url = "http://feeds.sciencedaily.com/sciencedaily"
+
+[[feeds]]
+name = "Scientific American"
+url = "http://rss.sciam.com/ScientificAmerican-Global"
+
+[[feeds]]
+name = "Search Engine Land"
+url = "http://feeds.searchengineland.com/searchengineland"
+
+[[feeds]]
+name = "Seeking Alpha"
+url = "https://seekingalpha.com/feed.xml"
+
+[[feeds]]
+name = "Small Business Trends"
+url = "https://smallbiztrends.com/feed"
+
+[[feeds]]
+name = "The Chronicle of Higher Education"
+url = "https://www.chronicle.com/section/Home/5/rss"
+
+[[feeds]]
+name = "The Good Men Project"
+url = "https://goodmenproject.com/feed"
+
+[[feeds]]
+name = "The Moz Blog"
+url = "http://feedpress.me/mozblog"
+
+[[feeds]]
+name = "TMZ"
+url = "https://www.tmz.com/rss.xml"
+
+[[feeds]]
+name = "The Business of Fashion"
+url = "https://www.businessoffashion.com/syndication/feed"
+
+[[feeds]]
+name = "The Guardian"
+url = "https://www.theguardian.com/uk/rss"
+
+[[feeds]]
+name = "The Independent"
+url = "http://www.independent.co.uk/rss"
+
+[[feeds]]
+name = "The Local Spain"
+url = "https://feeds.thelocal.com/rss/es"
+
+[[feeds]]
+name = "The New York Times"
+url = "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml"
+
+[[feeds]]
+name = "The Onion"
+url = "https://www.theonion.com/rss"
+
+[[feeds]]
+name = "The Points Guy"
+url = "https://thepointsguy.com/feed"
+
+[[feeds]]
+name = "The Telegraph"
+url = "https://www.telegraph.co.uk/rss.xml"
+
+[[feeds]]
+name = "The Verge"
+url = "https://www.theverge.com/rss/front-page/index.xml"
+
+[[feeds]]
+name = "Toronto Star"
+url = "https://www.thestar.com/feeds.topstories.full.rss"
+
+[[feeds]]
+name = "Trend News"
+url = "https://en.trend.az/feeds/index.rss"
+
+[[feeds]]
+name = "Urban Survival Site"
+url = "https://urbansurvivalsite.com/feed"
+
+[[feeds]]
+name = "VoxEurop"
+url = "https://voxeurop.eu/en/feed/rss/all.xml"
+
+[[feeds]]
+name = "Washington Post"
+url = "http://feeds.washingtonpost.com/rss/politics"
+
+[[feeds]]
+name = "WebMD Health"
+url = "https://rssfeeds.webmd.com/rss/rss.aspx?RSSSource=RSS_PUBLIC"
+
+[[feeds]]
+name = "Women and Hollywood"
+url = "https://womenandhollywood.com/feed/rss"
+
+[[feeds]]
+name = "Yahoo! Sports"
+url = "https://sports.yahoo.com/rss"
+
+[[feeds]]
+name = "ZDNet"
+url = "https://www.zdnet.com/news/rss.xml"
+
+[[feeds]]
+name = "sulonorth"
+url = "https://sulonorth.com/feed/"
+

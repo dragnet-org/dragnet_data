@@ -30,9 +30,10 @@ def main():
     )
     add_arguments(parser)
     args = parser.parse_args()
+    args.data_dirpath = args.data_dirpath.resolve()
     # fetch base data from rss feeds
     rss_pages = []
-    feeds = dragnet_data.utils.load_json_data(args.feeds_fpath)
+    feeds = dragnet_data.utils.load_toml_data(args.feeds_fpath)["feeds"]
     for feed in feeds:
         entries = dragnet_data.rss.get_entries_from_feed(feed, maxn=args.maxn_entries_per_feed)
         rss_pages.extend(
@@ -41,9 +42,12 @@ def main():
     # just in case: remove any rss pages without urls, since we need them next
     rss_pages = [rss_page for rss_page in rss_pages if rss_page.get("url")]
     logging.info("got data for %s pages from RSS feeds", len(rss_pages))
-    dragnet_data.utils.save_json_data(
-        rss_pages, args.data_dirpath.joinpath("rss_pages.json"),
+    dragnet_data.utils.save_toml_data(
+        {"pages": rss_pages}, args.data_dirpath.joinpath("rss_pages.toml"),
     )
+    # make html and meta directories if they don't already exist
+    args.data_dirpath.joinpath("html").mkdir(parents=False, exist_ok=True)
+    args.data_dirpath.joinpath("meta").mkdir(parents=False, exist_ok=True)
     # fetch html and re-extract base metadata, plus text if available
     rss_pages = random.sample(rss_pages, k=len(rss_pages))
     n_pages = len(rss_pages)
@@ -61,25 +65,25 @@ def main():
                 dragnet_data.utils.save_text_data(
                     html, args.data_dirpath.joinpath("html", f"{data['id']}.html"),
                 )
-                dragnet_data.utils.save_json_data(
-                    data, args.data_dirpath.joinpath("meta", f"{data['id']}.json"),
+                dragnet_data.utils.save_toml_data(
+                    data, args.data_dirpath.joinpath("meta", f"{data['id']}.toml"),
                 )
     # package file collections into archives
     shutil.make_archive(
-        args.data_dirpath.joinpath("html").resolve(),
-        root_dir=args.data_dirpath.joinpath("html").resolve(),
+        args.data_dirpath.joinpath("html"),
+        root_dir=args.data_dirpath.joinpath("html"),
         format="gztar",
     )
     shutil.make_archive(
-        args.data_dirpath.joinpath("meta").resolve(),
-        root_dir=args.data_dirpath.joinpath("meta").resolve(),
+        args.data_dirpath.joinpath("meta"),
+        root_dir=args.data_dirpath.joinpath("meta"),
         format="gztar",
     )
 
 
 def add_arguments(parser):
     parser.add_argument(
-        "--feeds_fpath", type=pathlib.Path, default=pathlib.Path("./data/rss_feeds.json"),
+        "--feeds_fpath", type=pathlib.Path, default=pathlib.Path("./data/rss_feeds.toml"),
     )
     parser.add_argument(
         "--data_dirpath", type=pathlib.Path, default=pathlib.Path("./data"),
