@@ -4,7 +4,9 @@ import json
 import logging
 import pathlib
 import uuid
-from typing import Dict, List, Union
+from typing import Any, Dict, List, Union
+
+import toml
 
 LOGGER = logging.getLogger(__name__)
 
@@ -14,7 +16,7 @@ def generate_page_uuid(url: str) -> str:
 
 
 def load_json_data(fpath: Union[str, pathlib.Path]) -> Dict[str, str]:
-    fpath = _to_path(fpath).resolve()
+    fpath = to_path(fpath).resolve()
     with fpath.open(mode="rt") as f:
         data = json.load(f)
     LOGGER.info("loaded json data from %s", fpath)
@@ -22,14 +24,14 @@ def load_json_data(fpath: Union[str, pathlib.Path]) -> Dict[str, str]:
 
 
 def save_json_data(data: List[Dict], fpath: Union[str, pathlib.Path]):
-    fpath = _to_path(fpath).resolve()
+    fpath = to_path(fpath).resolve()
     with fpath.open(mode="wt") as f:
         json.dump(data, f, indent=2, ensure_ascii=False, cls=ExtendedJSONEncoder)
     LOGGER.info("saved json data to %s", fpath)
 
 
 def load_text_data(fpath: Union[str, pathlib.Path]) -> str:
-    fpath = _to_path(fpath).resolve()
+    fpath = to_path(fpath).resolve()
     with fpath.open(mode="rt") as f:
         data = f.read()
     LOGGER.info("loaded text data from %s", fpath)
@@ -37,13 +39,28 @@ def load_text_data(fpath: Union[str, pathlib.Path]) -> str:
 
 
 def save_text_data(data: str, fpath: Union[str, pathlib.Path]):
-    fpath = _to_path(fpath).resolve()
+    fpath = to_path(fpath).resolve()
     with fpath.open(mode="wt") as f:
         f.write(data)
     LOGGER.info("saved text data to %s", fpath)
 
 
-def _to_path(path: Union[str, pathlib.Path]) -> pathlib.Path:
+def load_toml_data(fpath: Union[str, pathlib.Path]) -> Dict[str, Any]:
+    fpath = to_path(fpath).resolve()
+    with fpath.open(mode="rt") as f:
+        data = toml.load(f)
+    LOGGER.info("loaded toml data from %s", fpath)
+    return data
+
+
+def save_toml_data(data: Dict[str, Any], fpath: Union[str, pathlib.Path]):
+    fpath = to_path(fpath).resolve()
+    with fpath.open(mode="wt") as f:
+        toml.dump(data, f)
+    LOGGER.info("saved toml data to %s", fpath)
+
+
+def to_path(path: Union[str, pathlib.Path]) -> pathlib.Path:
     """Coerce ``path`` to a ``pathlib.Path``."""
     if isinstance(path, str):
         return pathlib.Path(path)
