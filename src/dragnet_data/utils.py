@@ -1,14 +1,23 @@
 import datetime
+import importlib
 import io
 import json
 import logging
 import pathlib
 import uuid
-from typing import Any, Dict, List, Union
+from typing import Any, Dict, List, Optional, Union
 
 import toml
 
 LOGGER = logging.getLogger(__name__)
+
+
+def get_pkg_root() -> Optional[pathlib.Path]:
+    pkg = importlib.util.find_spec("dragnet_data")
+    if pkg:
+        return pathlib.Path(pkg.origin).parent
+    else:
+        return None
 
 
 def generate_page_uuid(url: str) -> str:
