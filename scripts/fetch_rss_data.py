@@ -32,7 +32,13 @@ def main():
     # just in case: remove any rss pages without urls, since we need them for scraping
     rss_pages = [rss_page for rss_page in rss_pages if rss_page.get("url")]
     logging.info("got data for %s pages from RSS feeds", len(rss_pages))
-    dragnet_data.utils.save_toml_data({"pages": rss_pages}, args.pages_fpath)
+    if args.pages_fpath.exists() and args.force is False:
+        logging.warning(
+            "%s already exists and `force` is False; pages will not be saved:\n%s\n...",
+            args.pages_fpath, rss_pages[:3],
+        )
+    else:
+        dragnet_data.utils.save_toml_data({"pages": rss_pages}, args.pages_fpath)
 
 
 def add_arguments(parser):
@@ -51,6 +57,11 @@ def add_arguments(parser):
     parser.add_argument(
         "--maxn_entries_per_feed", type=int, default=25,
         help="maximum number of entries (pages) to include per feed",
+    )
+    parser.add_argument(
+        "--force", action="store_true", default=False,
+        help="if specified, save data to `pages_fpath` even if a file already exists "
+        "in that location; otherwise, just log data to the console"
     )
 
 
