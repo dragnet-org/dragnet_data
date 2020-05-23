@@ -4,6 +4,7 @@ import io
 import json
 import logging
 import pathlib
+import shutil
 import uuid
 from typing import Any, Dict, List, Optional, Union
 
@@ -79,6 +80,26 @@ def to_path(path: Union[str, pathlib.Path]) -> pathlib.Path:
         raise TypeError(
             "`path` type invalid; must be {}, not {}".format({str, pathlib.Path}, type(path))
         )
+
+
+def make_gztar_archive_from_dir(dirpath: pathlib.Path) -> pathlib.Path:
+    """
+    Make a gzipped tar archive from all contents of the directory at ``dirpath``,
+    and save to a file of the same base name with the parent directory.
+    """
+    fpath = pathlib.Path(shutil.make_archive(dirpath, root_dir=dirpath, format="gztar"))
+    LOGGER.info("made gztar archive at %s", fpath)
+    return fpath
+
+
+def unpack_gztar_archive_to_dir(fpath: pathlib.Path):
+    """
+    Unpack contents of gzipped tar archive file at ``fpath`` into a subdirectory of the
+    same base name within the same directory.
+    """
+    extract_dir = fpath.parent.joinpath(fpath.name[:-len("".join(fpath.suffixes))])
+    shutil.unpack_archive(fpath, extract_dir, format="gztar")
+    LOGGER.info("unpacked gztar archive into %s", extract_dir)
 
 
 class ExtendedJSONEncoder(json.JSONEncoder):
