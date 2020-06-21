@@ -12,6 +12,7 @@ logging.basicConfig(level=logging.INFO)
 
 PKG_ROOT = dragnet_data.utils.get_pkg_root()
 
+
 def main():
     parser = argparse.ArgumentParser(
         description="Fetch a set of recent pages with basic metadata from a collection "
@@ -41,7 +42,7 @@ def main():
         dragnet_data.utils.save_toml_data({"pages": rss_pages}, args.pages_fpath)
 
 
-def add_arguments(parser):
+def add_arguments(parser: argparse.ArgumentParser):
     parser.add_argument(
         "--feeds_fpath",
         type=pathlib.Path,
@@ -61,7 +62,7 @@ def add_arguments(parser):
     parser.add_argument(
         "--force", action="store_true", default=False,
         help="if specified, save data to `pages_fpath` even if a file already exists "
-        "in that location; otherwise, just log data to the console"
+        "in that location; otherwise, just log a preview to the console"
     )
 
 

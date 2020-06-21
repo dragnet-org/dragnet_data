@@ -57,9 +57,6 @@ def main():
                 meta_fpath = args.data_dirpath.joinpath("meta", f"{meta['id']}.toml")
                 save_page_data_or_log(html, html_fpath, args.force)
                 save_page_data_or_log(meta, meta_fpath, args.force)
-    # package file collections into archives
-    for dirname in ("html", "meta"):
-        dragnet_data.utils.make_gztar_archive_from_dir(args.data_dirpath.joinpath(dirname))
 
 
 def save_page_data_or_log(
@@ -97,8 +94,7 @@ def add_arguments(parser: argparse.ArgumentParser):
     parser.add_argument(
         "--force", action="store_true", default=False,
         help="if specified, save HTML and meta data under `data_dirpath` even if files "
-        "already exist in those locations; otherwise, just log a data preview to the console. "
-        "note: corresponding gztar archives are *always* saved to disk.",
+        "already exist in those locations; otherwise, just log a preview to the console. "
     )
 
 
