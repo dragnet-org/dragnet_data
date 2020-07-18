@@ -1,9 +1,9 @@
 import datetime
 import importlib
-import io
 import json
 import logging
 import pathlib
+import random
 import shutil
 import uuid
 from typing import Any, Dict, List, Optional, Union
@@ -11,6 +11,14 @@ from typing import Any, Dict, List, Optional, Union
 import toml
 
 LOGGER = logging.getLogger(__name__)
+
+
+def get_random_sample(items: List[Any], n: int) -> List[Any]:
+    """
+    Thin wrapper around ``random.sample`` that takes the min of ``n`` and ``len(items)``
+    when sampling, so as to avoid a ``ValueError``.
+    """
+    return random.sample(items, min(n, len(items)))
 
 
 def get_pkg_root() -> Optional[pathlib.Path]:

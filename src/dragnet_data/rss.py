@@ -1,11 +1,12 @@
 import datetime
 import logging
-import random
 import urllib.parse
 from typing import Any, Dict, List, Optional
 
 import feedparser
 import ftfy
+
+from . import utils
 
 LOGGER = logging.getLogger(__name__)
 
@@ -16,7 +17,7 @@ def get_entries_from_feed(
     feed_parsed = feedparser.parse(feed["url"])
     entries = feed_parsed.get("entries", [])
     if maxn:
-        entries = random.sample(entries, min(maxn, len(entries)))
+        entries = utils.get_random_sample(entries, maxn)
     LOGGER.info("got %s entries from %s feed", len(entries), feed["name"])
     return entries
 
