@@ -43,10 +43,10 @@ def get_data_from_html(html: str) -> Dict[str, Any]:
             type_ = jsonld.get("@type")
             if type_ in ARTICLE_TYPES:
                 syntax_data = {
-                    "text": get_article_body(jsonld),
                     "url": get_canonical_url(jsonld),
-                    "title": get_title(jsonld),
                     "dt_published": get_dt_published(jsonld),
+                    "title": get_title(jsonld) or " ",
+                    "text": get_article_body(jsonld) or "\n\n",
                 }
                 data.update({key: val for key, val in syntax_data.items() if val})
     return data
@@ -68,9 +68,9 @@ def get_article_body(jsonld: dict) -> Optional[str]:
     if article_body is None:
         return None
     elif isinstance(article_body, str):
-        return _parse_text_dtype(article_body, split=False)
+        return _parse_text_dtype(article_body)
     elif isinstance(article_body, list) and all(isinstance(para, str) for para in article_body):
-        return "\n\n".join(_parse_text_dtype(para, split=False) for para in article_body)
+        return "\n\n".join(_parse_text_dtype(para) for para in article_body if para)
     else:
         LOGGER.warning(
             "article_body=%s must be of type Optional[Union[str, List[str]]], not %s",
@@ -123,15 +123,15 @@ def get_title(jsonld: dict) -> Optional[str]:
     Extract and clean data from the 'headline', 'alternativeHeadline', or 'name'
     property, in that order.
     """
-    title = (
+    title: Optional[str] = (
         jsonld.get("headline") if "headline" in jsonld else
         jsonld.get("alternativeHeadline") if "alternativeHeadline" in jsonld else
         jsonld.get("name")
     )
-    return _parse_text_dtype(title, split=False)
+    return _parse_text_dtype(title)
 
 
-def _parse_dt_dtype(dt: Optional[str]) -> datetime.datetime:
+def _parse_dt_dtype(dt: Optional[str]) -> Optional[datetime.datetime]:
     """
     Parse a https://schema.org/Date or https://schema.org/DateTime data type value,
     and return it as a Python-native datetime object with timezone.
@@ -149,19 +149,12 @@ def _parse_dt_dtype(dt: Optional[str]) -> datetime.datetime:
         return None
 
 
-def _parse_text_dtype(
-    value: Optional[str],
-    split: bool = False,
-) -> Optional[Union[str, List[str]]]:
+def _parse_text_dtype(value: Optional[str]) -> Optional[str]:
     """Parse a https://schema.org/Text data type value, optionally splitting on commas."""
     if value is None:
         return None
     elif isinstance(value, str):
-        value = ftfy.fix_text(value)
-        if split is False:
-            return value.strip()
-        else:
-            return _tidy_text_values(value.split(","))
+        return ftfy.fix_text(value).strip()
     else:
         LOGGER.warning(
             "value=%s must be of type Optional[str], not %s",
