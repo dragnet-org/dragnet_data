@@ -48,10 +48,17 @@ def save_json_data(data: List[Dict], fpath: Union[str, pathlib.Path]):
     LOGGER.info("saved json data to %s", fpath)
 
 
-def load_text_data(fpath: Union[str, pathlib.Path]) -> str:
+def load_text_data(
+    fpath: Union[str, pathlib.Path],
+    *,
+    lines: bool = False,
+) -> Union[str, List[str]]:
     fpath = to_path(fpath).resolve()
     with fpath.open(mode="rt") as f:
-        data = f.read()
+        if not lines:
+            data = f.read()
+        else:
+            data = [line.strip() for line in f]
     LOGGER.info("loaded text data from %s", fpath)
     return data
 
@@ -86,7 +93,7 @@ def to_path(path: Union[str, pathlib.Path]) -> pathlib.Path:
         return path
     else:
         raise TypeError(
-            "`path` type invalid; must be {}, not {}".format({str, pathlib.Path}, type(path))
+            f"`path` type invalid; must be {[str, pathlib.Path]}, not {type(path)}"
         )
 
 
