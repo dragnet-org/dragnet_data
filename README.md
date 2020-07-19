@@ -25,19 +25,49 @@ $ pip install -e .
 $ pip install -e .[dev]
 ```
 
-## methodology and data
+## process
 
-Web pages are assigned universally unique ids based on the canonical URLs used to fetch their HTML. Each page is represented by two files:
+1. Make sure you've extracted the archive files containing gold-standard HTML (`/data/html.tar.gz`) and extracted metadata (`/data/meta.tar.gz`), as described in the preceding section. _This is important!_
+2. Fetch a batch of RSS pages from the RSS feeds specified in `/data/rss_feeds.toml`, optionally filtering to a subset of feeds, with additional control over the total and per-feed number of pages to fetch. Examples:
 
-- `data/html/[UUID].html`: Raw page HTML downloaded via HTTP GET request using the `httpx` package. No JavaScript is run on the page; character encodings are inferred.
-- `data/meta/[UUID].toml`: Structured metadata extracted from page HTML in JSON-LD or microdata formats. Results vary by page, but may include canonical url, title, date published, and a decent first pass on main text content.
+    ```bash
+    $ python scripts/fetch_rss_data.py
+    $ python scripts/fetch_rss_data.py --only_feeds "BBC News" "CNN" "WebMD Health"
+    $ python scripts/fetch_rss_data.py --maxn_pages 100 --maxn_pages_per_feed 10
+    ```
+
+3. Scrape HTML and automatically extract some metadata for the pages just fetched. If specifying a custom RSS pages file, be sure to use the same value as in the previous step! Examples:
+
+    ```bash
+    $ python scripts/fetch_html_data.py
+    $ python scripts/fetch_html_data.py --pages_fpath "/path/to/my_rss_pages.toml"
+    ```
+
+4. Extract gold-standard texts for each page in the batch, as described in detail below.
+5. Move all completed (html, meta) files into the "official" gold-standard data directories: `/data/html` and `/data/meta`, respectively.
+6. Package the new data up into archive files and add their UUIDs to the tally. Any inconsistencies arising from file-handling _should_ be caught automatically:
+
+    ```bash
+    $ python scripts/archive_data.py
+    ```
+
+7. Commit the changes and push them to the repo!
+
+## data and methodology
+
+Web pages are assigned universally unique ids (UUIDs) based on the canonical URLs used to fetch their HTML. Each page is represented by two files:
+
+- `/data/html/[UUID].html`: Raw page HTML downloaded via HTTP GET request using the `httpx` package. No JavaScript is run on the page; character encodings are inferred.
+- `/data/meta/[UUID].toml`: Structured metadata extracted from page HTML in JSON-LD or microdata formats. Results vary by page, but may include canonical url, title, date published, and a decent first pass on main text content.
+
+All pages included in the gold-standard archive data are listed in `/data/page_uuids.txt`.
 
 ### gold-standard text extractions
 
 For each page, the main text content is manually extracted from the raw HTML by following these steps:
 
-1. Open the page's HTML file (`data/html[UUID].html`) in a web browser for which JavaScript has been disabled. There's no need to disconnect from the internet.
-2. Open the corresponding metadata file (`data/meta/[UUID].toml`) in a text editor.
+1. Open the page's HTML file (`/data/html[UUID].html`) in a web browser for which JavaScript has been disabled. There's no need to disconnect from the internet.
+2. Open the corresponding metadata file (`/data/meta/[UUID].toml`) in a text editor.
 3. In the web browser, manually highlight the page's title, copy the text, then assign it to the `title` field and the first line of the `text` field in the text editor. If the page's metadata already has an extracted `title` field, make sure that the content is the same.
 4. In the web browser, manually highlight the page's main text content, either all at once or in convenient chunks. Take care to select only included components (details below). Copy the text over to the text editor as before.
 
@@ -64,7 +94,7 @@ Web page components excluded from text extractions:
 
 ### example page data
 
-From `data/html/0a9bec8e-7d7b-3711-81d1-9c11afa7e945.html`:
+From `/data/html/0a9bec8e-7d7b-3711-81d1-9c11afa7e945.html`:
 
 ```html
 <!DOCTYPE html>
@@ -92,7 +122,7 @@ From `data/html/0a9bec8e-7d7b-3711-81d1-9c11afa7e945.html`:
 </html>
 ```
 
-From `data/meta/0a9bec8e-7d7b-3711-81d1-9c11afa7e945.toml`:
+From `/data/meta/0a9bec8e-7d7b-3711-81d1-9c11afa7e945.toml`:
 
 ```toml
 id = "0a9bec8e-7d7b-3711-81d1-9c11afa7e945"
