@@ -5,9 +5,11 @@
 *.ipynb_checkpoints/
 
 # data
-data/html/*.html
-data/meta/*.json
-data/meta/*.toml
+data/TODO/*
+data/html/*
+data/meta/*
+!data/rss_feeds.toml
+!data/page_uuids.txt
 
 # dev env
 .DS_Store
