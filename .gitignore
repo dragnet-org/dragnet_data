@@ -5,9 +5,8 @@
 *.ipynb_checkpoints/
 
 # data
-data/TODO/*
-data/html/*
-data/meta/*
+data/**/*.html
+data/**/*.toml
 !data/rss_feeds.toml
 !data/page_uuids.txt
 
