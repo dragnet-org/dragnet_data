@@ -2,7 +2,6 @@ import argparse
 import logging
 import pathlib
 import random
-import shutil
 import sys
 from typing import Any, Dict, Optional, Tuple, Union
 
@@ -24,16 +23,7 @@ _META_FIELDS = ("id", "url", "title", "dt_published", "text")
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="Fetch HTML documents and some metadata for a set of pages "
-        "published to a curated collection of RSS feeds -- and, when possible, "
-        "extract a first pass on the page's main body text.",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-    )
-    add_arguments(parser)
-    args = parser.parse_args()
-    args.pages_fpath = args.pages_fpath.resolve()
-    args.data_dirpath = args.data_dirpath.resolve()
+    args = add_and_parse_args()
     # make html and meta directories if they don't already exist
     for dirname in ("html", "meta"):
         args.data_dirpath.joinpath(dirname).mkdir(parents=False, exist_ok=True)
@@ -75,7 +65,13 @@ def save_page_data_or_log(
             raise TypeError(f"data type {type(data)} is invalid")
 
 
-def add_arguments(parser: argparse.ArgumentParser):
+def add_and_parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Fetch HTML documents and some metadata for a set of pages "
+        "published to a curated collection of RSS feeds -- and, when possible, "
+        "extract a first pass on the page's main body text.",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
     parser.add_argument(
         "--pages_fpath",
         type=pathlib.Path,
@@ -83,7 +79,9 @@ def add_arguments(parser: argparse.ArgumentParser):
         help="path to file on disk where pages fetched from RSS feeds are stored",
     )
     parser.add_argument(
-        "--data_dirpath", type=pathlib.Path, default=PKG_ROOT.parents[1].joinpath("data"),
+        "--data_dirpath",
+        type=pathlib.Path,
+        default=PKG_ROOT.parents[1].joinpath("data", "TODO"),
         help="path to directory on disk under which HTML and meta data are to be stored "
         "at `data_dirpath/html` and `data_dirpath/meta`, respectively",
     )
@@ -96,6 +94,10 @@ def add_arguments(parser: argparse.ArgumentParser):
         help="if specified, save HTML and meta data under `data_dirpath` even if files "
         "already exist in those locations; otherwise, just log a preview to the console. "
     )
+    args = parser.parse_args()
+    args.pages_fpath = args.pages_fpath.resolve()
+    args.data_dirpath = args.data_dirpath.resolve()
+    return args
 
 
 def get_page_html_and_meta_data(
