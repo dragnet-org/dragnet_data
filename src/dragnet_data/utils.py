@@ -33,6 +33,17 @@ def generate_page_uuid(url: str) -> str:
     return str(uuid.uuid3(uuid.NAMESPACE_URL, url))
 
 
+def load_rss_feeds() -> List[Dict[str, str]]:
+    """
+    Load a curated collection of RSS feeds from which recent pages may be fetched,
+    as stored in ``/path/to/dragnet_data/data/rss_feeds.toml``.
+    """
+    pkg_root = get_pkg_root()
+    feeds_fpath = pkg_root.parents[1].joinpath("data", "rss_feeds.toml")
+    feeds = load_toml_data(feeds_fpath)["feeds"]
+    return feeds
+
+
 def load_json_data(fpath: Union[str, pathlib.Path]) -> Dict[str, str]:
     fpath = to_path(fpath).resolve()
     with fpath.open(mode="rt") as f:

@@ -14,8 +14,7 @@ PKG_ROOT = dd.utils.get_pkg_root()
 def main():
     args = add_and_parse_args()
     pages = []
-    feeds = dd.utils.load_toml_data(args.feeds_fpath)["feeds"]
-    feeds = filter_feeds(feeds, args.only_feeds)
+    feeds = filter_feeds(dd.utils.load_rss_feeds(), args.only_feeds)
     for feed in feeds:
         entries = dd.rss.get_entries_from_feed(feed, maxn=args.maxn_pages_per_feed)
         pages.extend(dd.rss.get_data_from_entry(entry) for entry in entries)
@@ -40,12 +39,6 @@ def add_and_parse_args() -> argparse.Namespace:
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     parser.add_argument(
-        "--feeds_fpath",
-        type=pathlib.Path,
-        default=PKG_ROOT.parents[1].joinpath("data", "rss_feeds.toml"),
-        help="path to file on disk where curated collection of RSS feeds is stored",
-    )
-    parser.add_argument(
         "--pages_fpath",
         type=pathlib.Path,
         default=PKG_ROOT.parents[1].joinpath("data", "rss_pages.toml"),
@@ -55,7 +48,7 @@ def add_and_parse_args() -> argparse.Namespace:
         "--only_feeds",
         type=str,
         nargs="+",
-        help="name(s) of feed(s) in ``feeds_fpath`` for which pages will be fetched, only",
+        help="name(s) of feed(s) in `rss_feeds.toml` for which pages will be fetched, only",
     )
     parser.add_argument(
         "--maxn_pages", type=int,
