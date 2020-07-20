@@ -17,7 +17,10 @@ def main():
     feeds = filter_feeds(dd.utils.load_rss_feeds(), args.only_feeds)
     for feed in feeds:
         entries = dd.rss.get_entries_from_feed(feed, maxn=args.maxn_pages_per_feed)
-        pages.extend(dd.rss.get_data_from_entry(entry) for entry in entries)
+        pages.extend(
+            dd.rss.get_data_from_entry(entry, feed=feed["name"])
+            for entry in entries
+        )
     # just in case: remove any rss pages without urls, since we need them for scraping
     pages = [page for page in pages if page.get("url")]
     if args.maxn_pages:
@@ -65,7 +68,6 @@ def add_and_parse_args() -> argparse.Namespace:
         "in that location; otherwise, just log a preview to the console"
     )
     args = parser.parse_args()
-    args.feeds_fpath = args.feeds_fpath.resolve()
     args.pages_fpath = args.pages_fpath.resolve()
     return args
 

@@ -22,16 +22,21 @@ def get_entries_from_feed(
     return entries
 
 
-def get_data_from_entry(entry: Dict[str, Any]) -> Dict[str, str]:
+def get_data_from_entry(entry: Dict[str, Any], **kwargs) -> Dict[str, str]:
+    """
+    Get key data ('url', 'title', 'dt_published') from parsed RSS feed entry
+    and add any custom fields as-is via kwargs.
+    """
     data = {
         "url": get_url(entry),
         "title": get_title(entry),
         "dt_published": get_dt_published(entry),
     }
+    data.update(**kwargs)
     return {key: val for key, val in data.items() if val}
 
 
-def get_dt_published(entry: Dict[str, Any]) -> str:
+def get_dt_published(entry: Dict[str, Any]) -> Optional[str]:
     dt_published_struct = entry.get("published_parsed")
     if dt_published_struct:
         return datetime.datetime(*dt_published_struct[:6]).isoformat()
@@ -39,7 +44,7 @@ def get_dt_published(entry: Dict[str, Any]) -> str:
         return None
 
 
-def get_title(entry: Dict[str, Any]) -> str:
+def get_title(entry: Dict[str, Any]) -> Optional[str]:
     title = entry.get("title")
     if title:
         return ftfy.fix_text(title)
@@ -47,7 +52,7 @@ def get_title(entry: Dict[str, Any]) -> str:
         return None
 
 
-def get_url(entry: Dict[str, Any]) -> str:
+def get_url(entry: Dict[str, Any]) -> Optional[str]:
     link = entry.get("link")
     if link:
         return urllib.parse.urljoin(link, urllib.parse.urlparse(link).path).rstrip("/")
