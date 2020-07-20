@@ -45,8 +45,8 @@ def get_data_from_html(html: str) -> Dict[str, Any]:
                 syntax_data = {
                     "url": get_canonical_url(jsonld),
                     "dt_published": get_dt_published(jsonld),
-                    "title": get_title(jsonld) or " ",
-                    "text": get_article_body(jsonld) or "\n\n",
+                    "title": get_title(jsonld),
+                    "text": get_article_body(jsonld),
                 }
                 data.update({key: val for key, val in syntax_data.items() if val})
     return data

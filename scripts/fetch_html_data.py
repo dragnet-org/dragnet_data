@@ -19,14 +19,14 @@ USER_AGENTS = (
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:75.0) Gecko/20100101 Firefox/75.0",
 )
-_META_FIELDS = ("id", "url", "title", "dt_published", "text")
+_META_FIELDS = ("id", "url", "dt_published", "title", "text")
 
 
 def main():
     args = add_and_parse_args()
     # make html and meta directories if they don't already exist
     for dirname in dd.utils.DATA_DIRNAMES:
-        args.data_dirpath.joinpath(dirname).mkdir(parents=False, exist_ok=True)
+        args.data_dirpath.joinpath(dirname).mkdir(parents=True, exist_ok=True)
     # load and shuffle rss pages (to avoid slamming sites' servers)
     rss_pages = dd.utils.load_rss_pages(args.pages_fpath)
     rss_pages = random.sample(rss_pages, k=len(rss_pages))
@@ -102,6 +102,9 @@ def get_page_html_and_meta_data(
     if "url" not in meta:
         meta["url"] = str(response.url)
     meta["id"] = dd.utils.generate_page_uuid(meta["url"])
+    # HACK: let's add empty placeholders for text and title, if not already present
+    for field in ("text", "title"):
+        _ = meta.setdefault(field, "")
     # for convenience, let's standardize the order of fields in output data
     meta = {field: meta.get(field) for field in _META_FIELDS}
     return (html, meta)
