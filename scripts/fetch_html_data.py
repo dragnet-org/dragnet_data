@@ -7,11 +7,11 @@ from typing import Any, Dict, Optional, Tuple, Union
 
 import httpx
 
-import dragnet_data
+import dragnet_data as dd
 
 logging.basicConfig(level=logging.INFO)
 
-PKG_ROOT = dragnet_data.utils.get_pkg_root()
+PKG_ROOT = dd.utils.get_pkg_root()
 USER_AGENTS = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1 Safari/605.1.15",
@@ -25,15 +25,15 @@ _META_FIELDS = ("id", "url", "title", "dt_published", "text")
 def main():
     args = add_and_parse_args()
     # make html and meta directories if they don't already exist
-    for dirname in ("html", "meta"):
+    for dirname in dd.utils.DATA_DIRNAMES:
         args.data_dirpath.joinpath(dirname).mkdir(parents=False, exist_ok=True)
-    rss_pages = dragnet_data.utils.load_toml_data(args.pages_fpath)["pages"]
-    # random shuffle page order to avoid hitting sites' servers too hard
+    # load and shuffle rss pages (to avoid slamming sites' servers)
+    rss_pages = dd.utils.load_rss_pages(args.pages_fpath)
     rss_pages = random.sample(rss_pages, k=len(rss_pages))
     # fetch html and re-extract base metadata, plus text if available
     n_pages = len(rss_pages)
     with httpx.Client(timeout=args.http_timeout) as client:
-        for idx, rss_page in enumerate(rss_pages[:3]):
+        for idx, rss_page in enumerate(rss_pages):
             logging.info("getting data for page %s / %s", idx, n_pages)
             headers = {"user-agent": random.choice(USER_AGENTS)}
             data = get_page_html_and_meta_data(
@@ -47,22 +47,6 @@ def main():
                 meta_fpath = args.data_dirpath.joinpath("meta", f"{meta['id']}.toml")
                 save_page_data_or_log(html, html_fpath, args.force)
                 save_page_data_or_log(meta, meta_fpath, args.force)
-
-
-def save_page_data_or_log(
-    data: Union[str, Dict[str, Any]], fpath: pathlib.Path, force: bool,
-):
-    if fpath.exists() and force is False:
-        logging.warning(
-            "%s already exists and `force` is False; data will not be saved", fpath,
-        )
-    else:
-        if isinstance(data, str):
-            dragnet_data.utils.save_text_data(data, fpath)
-        elif isinstance(data, dict):
-            dragnet_data.utils.save_toml_data(data, fpath)
-        else:
-            raise TypeError(f"data type {type(data)} is invalid")
 
 
 def add_and_parse_args() -> argparse.Namespace:
@@ -106,21 +90,37 @@ def get_page_html_and_meta_data(
     **kwargs,
 ) -> Optional[Tuple[str, Dict[str, Any]]]:
     try:
-        html, response = dragnet_data.html.get_html(url, client=client, **kwargs)
+        html, response = dd.html.get_html(url, client=client, **kwargs)
     except httpx.HTTPError:
         logging.exception("unable to get HTML for %s", url)
         return
     try:
-        meta = dragnet_data.html.get_data_from_html(html)
+        meta = dd.html.get_data_from_html(html)
     except Exception:
         logging.error("unable to extract data from HTML for %s", url)
         return
     if "url" not in meta:
         meta["url"] = str(response.url)
-    meta["id"] = dragnet_data.utils.generate_page_uuid(meta["url"])
+    meta["id"] = dd.utils.generate_page_uuid(meta["url"])
     # for convenience, let's standardize the order of fields in output data
     meta = {field: meta.get(field) for field in _META_FIELDS}
     return (html, meta)
+
+
+def save_page_data_or_log(
+    data: Union[str, Dict[str, Any]], fpath: pathlib.Path, force: bool,
+):
+    if fpath.exists() and force is False:
+        logging.warning(
+            "%s already exists and `force` is False; data will not be saved", fpath,
+        )
+    else:
+        if isinstance(data, str):
+            dd.utils.save_text_data(data, fpath)
+        elif isinstance(data, dict):
+            dd.utils.save_toml_data(data, fpath)
+        else:
+            raise TypeError(f"data type {type(data)} is invalid")
 
 
 if __name__ == "__main__":

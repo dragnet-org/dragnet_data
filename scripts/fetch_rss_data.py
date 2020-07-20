@@ -29,7 +29,7 @@ def main():
             args.pages_fpath, pages[:3],
         )
     else:
-        dd.utils.save_toml_data({"pages": pages}, args.pages_fpath)
+        dd.utils.save_rss_pages(pages, args.pages_fpath)
 
 
 def add_and_parse_args() -> argparse.Namespace:

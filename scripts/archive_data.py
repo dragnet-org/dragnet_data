@@ -9,21 +9,21 @@ import dragnet_data as dd
 logging.basicConfig(level=logging.INFO)
 
 PKG_ROOT = dd.utils.get_pkg_root()
-DIRNAMES = ("html", "meta")
 _DIRNAME_GLOBPATS = {"html": "*.html", "meta": "*.toml"}
 
 
 def main():
     args = add_and_parse_args()
     get_check_and_save_page_uuids(args.data_dirpath)
-    for dirname in DIRNAMES:
+    for dirname in dd.utils.DATA_DIRNAMES:
         dirpath = args.data_dirpath.joinpath(dirname)
         dd.utils.make_gztar_archive_from_dir(dirpath)
 
 
 def add_and_parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Make gztar archives of existing HTML and metadata files.",
+        description="Make gztar archives of existing HTML and metadata files, "
+        "and track archived pages' UUIDS in a separate text file.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     parser.add_argument(
@@ -40,8 +40,12 @@ def add_and_parse_args() -> argparse.Namespace:
 
 
 def get_check_and_save_page_uuids(data_dirpath: pathlib.Path):
+    """
+    Get all page UUIDs in data directories and sidecar text file, check to make sure
+    they're all (self-)consistent, then save the final list to disk.
+    """
     page_uuids: Dict[str, Set[str]] = {}
-    for dirname in DIRNAMES:
+    for dirname in dd.utils.DATA_DIRNAMES:
         dirpath = data_dirpath.joinpath(dirname)
         page_uuids[dirname] = {
             path.stem for path in dirpath.glob(_DIRNAME_GLOBPATS[dirname])
@@ -53,7 +57,6 @@ def get_check_and_save_page_uuids(data_dirpath: pathlib.Path):
             "every page in '/html' must have a corresponding page in '/meta', "
             f"but these pages do not: {unpaired_uuids}"
         )
-
     all_page_uuids = page_uuids["html"]
     page_uuids_fpath = data_dirpath.joinpath("page_uuids.txt")
     # check #2: make sure all existing pages are also in the local set of pages
@@ -66,8 +69,8 @@ def get_check_and_save_page_uuids(data_dirpath: pathlib.Path):
                 f"in {data_dirpath.joinpath('html')}, but these pages are not: "
                 f"{missing_uuids}"
             )
-
-    dd.utils.save_text_data("\n".join(sorted(all_page_uuids)), page_uuids_fpath)
+    # okay, should be safe to save uuids... in sorted order, for convenience
+    dd.utils.save_text_data(sorted(all_page_uuids), page_uuids_fpath)
 
 
 if __name__ == "__main__":
