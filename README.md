@@ -136,3 +136,21 @@ Summary
 
 Corporate fundamentals have been collapsing ...
 ```
+
+### RSS feeds
+
+The set of feeds included in `/data/rss_feeds.toml` was manually compiled through the following process:
+
+1. Identify a candidate website through some convenient means -- web search, aggregator site, popular RSS feed listing, etc. -- taking care to prioritize variety of content and site structure relative to any sites already in the list.
+2. Navigate to the candidate site in a web browser, then check its source code for any links to RSS feeds by searching for `rss` or `application/rss+xml` or `atom`.
+3. Copy an appropriate link's `href` value and add it to a new entry in `rss_feeds.toml` along with the site's name (in alphabetical order, by name), structured like so:
+
+    ```
+    [[feeds]]
+    name = "[SITE NAME]"
+    url = "[RSS FEED URL]"
+    ```
+
+4. Before officially committing to a feed, it's best to check its contents to make sure that there are entries and that those entries have the expected structure. An easy way is to pass `{"name": "[SITE NAME]", "url": "[RSS_FEED_URL]"}` into `dragnet_data.rss.get_entries_from_feed()` and check its output.
+
+Note that the current set of feeds is pretty good, and we should only add new ones to address specific needs.
