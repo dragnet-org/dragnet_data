@@ -154,3 +154,9 @@ The set of feeds included in `/data/rss_feeds.toml` was manually compiled throug
 4. Before officially committing to a feed, it's best to check its contents to make sure that there are entries and that those entries have the expected structure. An easy way is to pass `{"name": "[SITE NAME]", "url": "[RSS_FEED_URL]"}` into `dragnet_data.rss.get_entries_from_feed()` and check its output.
 
 Note that the current set of feeds is pretty good, and we should only add new ones to address specific needs.
+
+## License
+
+The data in this project is licensed under the [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) license.
+
+The source code used to produce that data is licensed under the MIT license.
