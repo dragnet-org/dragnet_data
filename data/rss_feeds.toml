@@ -3,8 +3,20 @@ name = "ABC News"
 url = "https://abcnews.go.com/abcnews/topstories"
 
 [[feeds]]
+name = "Above the Law"
+url = "https://abovethelaw.com/feed"
+
+[[feeds]]
 name = "Adventure Journal"
 url = "https://www.adventure-journal.com/feed"
+
+[[feeds]]
+name = "American Meteorological Society"
+url = "http://blog.ametsoc.org/feed"
+
+[[feeds]]
+name = "Apple Newsroom"
+url = "https://www.apple.com/newsroom/rss-feed.rss"
 
 [[feeds]]
 name = "Autoblog"
@@ -131,6 +143,10 @@ name = "HuffPost"
 url = "https://www.huffpost.com/section/front-page/feed?x=1"
 
 [[feeds]]
+name = "Inhabitat"
+url = "https://inhabitat.com/feed"
+
+[[feeds]]
 name = "Inside Higher Ed"
 url = "https://www.insidehighered.com/rss/feed/ihe"
 
@@ -145,6 +161,10 @@ url = "https://www.lemonde.fr/rss/une.xml"
 [[feeds]]
 name = "Los Angeles Times"
 url = "https://www.latimes.com/local/rss2.0.xml"
+
+[[feeds]]
+name = "Marginal Revolution"
+url = "https://marginalrevolution.com/feed"
 
 [[feeds]]
 name = "Medical News Today"
@@ -165,6 +185,10 @@ url = "https://feeds.npr.org/1001/rss.xml"
 [[feeds]]
 name = "Nature"
 url = "http://feeds.nature.com/nature/rss/current"
+
+[[feeds]]
+name = "Organic Farming Research Foundation"
+url = "https://ofrf.org/feed"
 
 [[feeds]]
 name = "Refinery29"
@@ -203,24 +227,24 @@ name = "Small Business Trends"
 url = "https://smallbiztrends.com/feed"
 
 [[feeds]]
+name = "TMZ"
+url = "https://www.tmz.com/rss.xml"
+
+[[feeds]]
+name = "TechCrunch"
+url = "https://techcrunch.com/feed"
+
+[[feeds]]
+name = "The Business of Fashion"
+url = "https://www.businessoffashion.com/syndication/feed"
+
+[[feeds]]
 name = "The Chronicle of Higher Education"
 url = "https://www.chronicle.com/section/Home/5/rss"
 
 [[feeds]]
 name = "The Good Men Project"
 url = "https://goodmenproject.com/feed"
-
-[[feeds]]
-name = "The Moz Blog"
-url = "http://feedpress.me/mozblog"
-
-[[feeds]]
-name = "TMZ"
-url = "https://www.tmz.com/rss.xml"
-
-[[feeds]]
-name = "The Business of Fashion"
-url = "https://www.businessoffashion.com/syndication/feed"
 
 [[feeds]]
 name = "The Guardian"
@@ -235,8 +259,16 @@ name = "The Local Spain"
 url = "https://feeds.thelocal.com/rss/es"
 
 [[feeds]]
+name = "The Moz Blog"
+url = "http://feedpress.me/mozblog"
+
+[[feeds]]
 name = "The New York Times"
 url = "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml"
+
+[[feeds]]
+name = "The Official Microsoft Blog"
+url = "https://blogs.microsoft.com/feed"
 
 [[feeds]]
 name = "The Onion"
@@ -255,10 +287,6 @@ name = "The Verge"
 url = "https://www.theverge.com/rss/front-page/index.xml"
 
 [[feeds]]
-name = "Toronto Star"
-url = "https://www.thestar.com/feeds.topstories.full.rss"
-
-[[feeds]]
 name = "Trend News"
 url = "https://en.trend.az/feeds/index.rss"
 
@@ -275,6 +303,10 @@ name = "Washington Post"
 url = "http://feeds.washingtonpost.com/rss/politics"
 
 [[feeds]]
+name = "Watts Up With That?"
+url = "https://wattsupwiththat.com/feed"
+
+[[feeds]]
 name = "WebMD Health"
 url = "https://rssfeeds.webmd.com/rss/rss.aspx?RSSSource=RSS_PUBLIC"
 
@@ -289,8 +321,3 @@ url = "https://sports.yahoo.com/rss"
 [[feeds]]
 name = "ZDNet"
 url = "https://www.zdnet.com/news/rss.xml"
-
-[[feeds]]
-name = "sulonorth"
-url = "https://sulonorth.com/feed/"
-
