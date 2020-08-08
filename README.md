@@ -12,7 +12,7 @@ Repository of code and data used to build a training dataset for [`dragnet`](htt
 To make the training dataset accessible for `dragnet`, do the following:
 
 ```bash
-$ git clone https://github.com/bdewilde/dragnet_data.git
+$ git clone https://github.com:dragnet-org/dragnet_data.git
 $ cd dragnet_data
 $ tar xvf data/html.tar.gz
 $ tar xvf data/meta.tar.gz
