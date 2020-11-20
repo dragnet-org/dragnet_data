@@ -1,11 +1,12 @@
 import datetime
 import logging
-from typing import Any, Dict, Iterable, List, Optional, Set, Tuple, Union
+from typing import Any, Dict, Iterable, List, Optional, Set, Tuple
 
 import arrow
 import extruct
 import ftfy
 import httpx
+
 
 LOGGER = logging.getLogger(__name__)
 
@@ -13,8 +14,15 @@ CONTEXTS = {"http://schema.org", "https://schema.org",}
 ARTICLE_TYPES = {
     "Article",
     "TechArticle",
-    "NewsArticle", "AnalysisNewsArticle", "AskPublicNewsArticle", "BackgroundNewsArticle", "OpinionNewsArticle", "ReportageNewsArticle", "ReviewNewsArticle",
-    "BlogPosting", "LiveBlogPosting",
+    "NewsArticle",
+    "AnalysisNewsArticle",
+    "AskPublicNewsArticle",
+    "BackgroundNewsArticle",
+    "OpinionNewsArticle",
+    "ReportageNewsArticle",
+    "ReviewNewsArticle",
+    "BlogPosting",
+    "LiveBlogPosting",
 }
 PAGE_TYPES = {"WebPage",}
 METADATA_SYNTAXES = {"microdata", "json-ld"}
@@ -44,8 +52,8 @@ def get_data_from_html(html: str) -> Dict[str, Any]:
             if type_ in ARTICLE_TYPES:
                 syntax_data = {
                     "url": get_canonical_url(jsonld),
-                    "dt_published": get_dt_published(jsonld),
                     "title": get_title(jsonld),
+                    "dt_published": get_dt_published(jsonld),
                     "text": get_article_body(jsonld),
                 }
                 data.update({key: val for key, val in syntax_data.items() if val})

@@ -10,6 +10,7 @@ from typing import Any, Dict, List, Optional, Union
 
 import toml
 
+
 LOGGER = logging.getLogger(__name__)
 DATA_DIRNAMES = ("html", "meta")
 

@@ -8,6 +8,7 @@ import ftfy
 
 from . import utils
 
+
 LOGGER = logging.getLogger(__name__)
 
 
