@@ -3,7 +3,7 @@
 Repository of code and data used to build a training dataset for [`dragnet`](https://github.com/dragnet-org/dragnet) models. Specifically:
 
 - code to fetch a random sample of the latest articles published to a manually-specified collection of RSS feeds
-- code to fetch articles' HTML data via HTTP GET requests, along with any relevant metadata embedded therein
+- code to fetch articles' HTML data via HTTP GET requests, along with a draft extraction of relevant metadata embedded therein
 - code to save all (HTML, metadata) documents in gztar archives
 - data produced by the above code, in conjunction with a manual text extraction process
 
@@ -36,14 +36,14 @@ $ pip install -e .[dev]
     $ python scripts/fetch_rss_data.py --maxn_pages 100 --maxn_pages_per_feed 10
     ```
 
-3. Scrape HTML and automatically extract some metadata for the pages just fetched. If specifying a custom RSS pages file, be sure to use the same value as in the previous step! Examples:
+3. Scrape HTML and automatically extract draft metadata for the pages just fetched. If specifying a custom RSS pages file, be sure to use the same value as in the previous step! Examples:
 
     ```bash
     $ python scripts/fetch_html_data.py
     $ python scripts/fetch_html_data.py --pages_fpath "/path/to/my_rss_pages.toml"
     ```
 
-4. Extract gold-standard texts for each page in the batch, as described in detail below.
+4. Extract gold-standard text, title, and date published for each page in the batch, as described in detail below.
 5. Move all completed (html, meta) files into the "official" gold-standard data directories: `/data/html` and `/data/meta`, respectively.
 6. Package the new data up into archive files and add their UUIDs to the tally. Any inconsistencies arising from file-handling _should_ be caught automatically:
 
@@ -58,24 +58,54 @@ $ pip install -e .[dev]
 Web pages are assigned universally unique ids (UUIDs) based on the canonical URLs used to fetch their HTML. Each page is represented by two files:
 
 - `/data/html/[UUID].html`: Raw page HTML downloaded via HTTP GET request using the `httpx` package. No JavaScript is run on the page; character encodings are inferred.
-- `/data/meta/[UUID].toml`: Structured metadata extracted from page HTML in JSON-LD or microdata formats. Results vary by page, but may include canonical url, title, date published, and a decent first pass on main text content.
+- `/data/meta/[UUID].toml`: Structured metadata extracted from page HTML — first via automatic extraction from JSON-LD or microdata formats, followed by a manual pass described below. Results vary by page, but typically include canonical url, title, date published, and main text content.
 
 All pages included in the gold-standard archive data are listed in `/data/page_uuids.txt`.
 
-### gold-standard text extractions
+### gold-standard metadata extractions
 
-For each page, the main text content is manually extracted from the raw HTML by following these steps:
+For each page, gold-standard metadata is manually extracted from the raw HTML by following these steps:
 
 1. Open the page's HTML file (`/data/html[UUID].html`) in a web browser for which JavaScript has been disabled. There's no need to disconnect from the internet.
 2. Open the corresponding metadata file (`/data/meta/[UUID].toml`) in a text editor.
-3. In the web browser, manually highlight the page's title, copy the text, then assign it to the `title` field and the first line of the `text` field in the text editor. If the page's metadata already has an extracted `title` field, make sure that the content is the same.
-4. In the web browser, manually highlight the page's main text content, either all at once or in convenient chunks. Take care to select only included components (details below). Copy the text over to the text editor as before.
+
+#### `title`
+
+3. In the web browser, manually highlight the visible text content of the page's title, copy the text, then assign it to the `title` field in the text editor. If the page's metadata already has an extracted `title` field (it was automatically extracted), use it as a sanity-check only before overwriting its contents.
+
+Included web page components:
+
+- main page title
+
+Excluded web page components:
+
+- subtitles, ledes, and summaries
+
+#### `dt_published`
+
+4. In the web browser, manually highlight the visible text content containing the page's date published data, if present; copy the text, then assign it to the `dt_published` field in the text editor. If the page's metadata already has an extracted `dt_published` field (it was automatically extracted), use it as a sanity-check only before overwriting its contents; if there's an automatically extracted value but no visible text content for you to copy, remove the field and its value from the metadata file.
+
+Note that automatic extractions are saved in toml-native datetime format, but you'll be pasting in a human-friendly text string. All gold-standard extractions must be visible web page content, not structured metadata embedded within HTML documents.
+
+Included web page components:
+
+- dates, times, and timezones in any recognizable format
+- humanized date/time representations, such as "Today" or "13 hours ago"
+
+Excluded web page components:
+
+- labeling or connective prefix, such as "Published: ..." or "on ..."
+- symbols adjacent to but _external_ to date/time text separating it from other components
+- similar date/time text for "date updated", when presented alongside "date published"
+
+#### `text`
+
+5. In the web browser, manually highlight the page's main visible text content, either all at once or in convenient chunks. Take care to select only included components (details below). Copy the text over to the text editor as before, and be sure to spread it out across multiple lines using toml's multi-line literal string syntax (`'''`).
 
 Web page components included in text extractions:
 
-- title
-- subtitles, ledes, and summaries
 - main body text
+- subtitles, ledes, and summaries
 - pull quotes and block quotes
 - visible image captions, excluding sourcing info
 - visible text content of embedded social media posts
@@ -113,6 +143,12 @@ From `/data/html/0a9bec8e-7d7b-3711-81d1-9c11afa7e945.html`:
                 <article>
                     ...
                     <h1>1 Sale And 10 Buys I just Made In My Retirement Portfolio</h1>
+                    <div class="a-info clearfix">
+                        ::before
+                        <time content="2020-05-21T22:03:34Z">May 21, 2020 6:03 PM ET</time>
+                        <span id="a-comments-wrapper"></span>
+                        ...
+                    </div>
                     ...
                 </article>
             </div>
@@ -128,10 +164,8 @@ From `/data/meta/0a9bec8e-7d7b-3711-81d1-9c11afa7e945.toml`:
 id = "0a9bec8e-7d7b-3711-81d1-9c11afa7e945"
 url = "https://seekingalpha.com/article/4349447-1-sale-and-10-buys-i-just-made-in-retirement-portfolio"
 title = "1 Sale And 10 Buys I Just Made In My Retirement Portfolio"
-dt_published = 2020-05-21T22:03:34Z
+dt_published = "May 21, 2020 6:03 PM ET"
 text = '''
-1 Sale And 10 Buys I Just Made In My Retirement Portfolio
-
 Summary
 
 Corporate fundamentals have been collapsing ...
