@@ -19,7 +19,6 @@ USER_AGENTS = (
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:75.0) Gecko/20100101 Firefox/75.0",
 )
-_META_FIELDS = ("id", "url", "title", "dt_published", "text")
 
 
 def main():
@@ -106,7 +105,7 @@ def get_page_html_and_meta_data(
     for field in ("title", "dt_published", "text"):
         _ = meta.setdefault(field, "")
     # for convenience, let's standardize the order of fields in output data
-    meta = {field: meta.get(field) for field in _META_FIELDS}
+    meta = {field: meta.get(field) for field in dd.utils.META_FIELDS}
     return (html, meta)
 
 
