@@ -89,7 +89,7 @@ Note that automatic extractions are saved in toml-native datetime format, but yo
 
 Included web page components:
 
-- dates, times, and timezones in any recognizable format
+- days, dates, times, and timezones in any recognizable format
 - humanized date/time representations, such as "Today" or "13 hours ago"
 
 Excluded web page components:
@@ -97,6 +97,7 @@ Excluded web page components:
 - labeling or connective prefix, such as "Published: ..." or "on ..."
 - symbols adjacent to but _external_ to date/time text separating it from other components
 - similar date/time text for "date updated", when presented alongside "date published"
+- recognizable date/time published if it's used as the start of main article text
 
 #### `text`
 
