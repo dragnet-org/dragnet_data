@@ -10,8 +10,10 @@ from typing import Any, Dict, List, Optional, Union
 
 import toml
 
+
 LOGGER = logging.getLogger(__name__)
 DATA_DIRNAMES = ("html", "meta")
+META_FIELDS = ("id", "url", "title", "dt_published", "text")
 
 
 def get_random_sample(items: List[Any], k: int) -> List[Any]:
